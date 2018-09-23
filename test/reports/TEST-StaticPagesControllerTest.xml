@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="StaticPagesControllerTest" filepath="/home/niquefa/UN/cripto_group_F/test/controllers/static_pages_controller_test.rb" skipped="0" failures="0" errors="0" tests="1" assertions="1" time="0.42867201499939256">
+    <testcase name="test_should_get_des" lineno="4" classname="StaticPagesControllerTest" assertions="1" time="0.42867201499939256">
+    </testcase>
+  </testsuite>
+</testsuites>
