@@ -4,12 +4,14 @@ class SecretsController < ApplicationController
   # GET /secrets
   # GET /secrets.json
   def index
+    @algorithm_name = CriptoAlgorithms.names
     @secrets = Secret.all
   end
 
   # GET /secrets/1
   # GET /secrets/1.json
   def show
+    @algorithm_name = CriptoAlgorithms.names
   end
 
   # GET /secrets/new
@@ -24,7 +26,27 @@ class SecretsController < ApplicationController
   # POST /secrets
   # POST /secrets.json
   def create
-    @secret = Secret.new(secret_params)
+
+    data = secret_params
+    puts data.inspect
+    puts data.class
+    
+    plaintext = data[:message]
+    key = data[:key]
+    algorithm = data[:algorithm].to_i
+    
+    ciphertext = plaintext # TODO :v
+
+    case algorithm
+    when 0
+      puts "Use DES"
+    when 1
+      puts "Use Lazy AES"
+    else
+      puts "Unkown algorithm"
+    end 
+
+    @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
 
     respond_to do |format|
       if @secret.save
@@ -69,6 +91,6 @@ class SecretsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def secret_params
-      params.require(:secret).permit(:ciphertext, :algorithm)
+      params.require(:secret).permit(:message, :key, :algorithm)
     end
 end
