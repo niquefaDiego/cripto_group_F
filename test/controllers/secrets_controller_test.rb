@@ -45,4 +45,21 @@ class SecretsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to secrets_url
   end
+
+  test "should accept valid algorithms" do
+    valid_algorithms = [1,2]
+    valid_algorithms.each do |valid_algorithm|
+      @secret.algorithm = valid_algorithm
+      assert @secret.valid?, "#{valid_algorithm} should be a valid algorithm"
+    end
+  end
+
+  test "should reject invalid algorithms" do
+    invalid_algorithms = [-1,0,3,4,10]
+    invalid_algorithms.each do |invalid_algorithm|
+      @secret.algorithm = invalid_algorithm
+      assert_not @secret.valid?, "#{invalid_algorithm} should be an invalid algorithm"
+    end
+  end
+
 end
