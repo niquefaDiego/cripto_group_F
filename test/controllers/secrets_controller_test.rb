@@ -47,7 +47,7 @@ class SecretsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should accept valid algorithms" do
-    valid_algorithms = [1,2]
+    valid_algorithms = [0,1]
     valid_algorithms.each do |valid_algorithm|
       @secret.algorithm = valid_algorithm
       assert @secret.valid?, "#{valid_algorithm} should be a valid algorithm"
@@ -55,7 +55,7 @@ class SecretsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should reject invalid algorithms" do
-    invalid_algorithms = [-1,0,3,4,10]
+    invalid_algorithms = [-1,2,3,4,10]
     invalid_algorithms.each do |invalid_algorithm|
       @secret.algorithm = invalid_algorithm
       assert_not @secret.valid?, "#{invalid_algorithm} should be an invalid algorithm"

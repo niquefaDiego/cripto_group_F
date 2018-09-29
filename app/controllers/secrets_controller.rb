@@ -4,12 +4,14 @@ class SecretsController < ApplicationController
   # GET /secrets
   # GET /secrets.json
   def index
+    @algorithm_name = CriptoAlgorithms.names
     @secrets = Secret.all
   end
 
   # GET /secrets/1
   # GET /secrets/1.json
   def show
+    @algorithm_name = CriptoAlgorithms.names
   end
 
   # GET /secrets/new
