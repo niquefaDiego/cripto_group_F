@@ -3,15 +3,16 @@ class CriptoAlgorithms
 
   def self.names() [ "DES", "Lazy AES" ] end
 
-  def count() self.names.count end
+  def self.count() self.names.count end
 
-
-  def encrypt(algorithm, key, plaintext)
+  def self.encrypt(algorithm, key, plaintext)
     #TODO
+    plaintext.reverse
   end
 
-  def decrypt(algorithm, key, ciphertext)
+  def self.decrypt(algorithm, key, ciphertext)
     #TODO
+    ciphertext.reverse
   end
 
 end
