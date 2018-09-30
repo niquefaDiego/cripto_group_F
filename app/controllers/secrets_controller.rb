@@ -12,11 +12,17 @@ class SecretsController < ApplicationController
   # GET /secrets/1.json
   def show
     @algorithm_name = CriptoAlgorithms.names
+    @key = params[:key] #unsafe? :v
   end
 
   # GET /secrets/new
   def new
     @secret = Secret.new
+  end
+
+
+  def decipher
+    # TODO page to decipher a message with ID or ciphertext
   end
 
   # GET /secrets/1/edit
@@ -34,18 +40,9 @@ class SecretsController < ApplicationController
     plaintext = data[:message]
     key = data[:key]
     algorithm = data[:algorithm].to_i
+
+    ciphertext = CriptoAlgorithms.encrypt(algorithm,key,plaintext)
     
-    ciphertext = plaintext # TODO :v
-
-    case algorithm
-    when 0
-      puts "Use DES"
-    when 1
-      puts "Use Lazy AES"
-    else
-      puts "Unkown algorithm"
-    end 
-
     @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
 
     respond_to do |format|
