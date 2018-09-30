@@ -12,10 +12,10 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-#group :production do
+group :production do
   ## For heroku deployment
-#  gem 'pg', '0.20.0'
-#end
+  gem 'pg', '0.20.0'
+end
 
 
 # Use Puma as the app server
