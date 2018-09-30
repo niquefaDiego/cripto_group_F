@@ -1,5 +1,9 @@
 class SecretsController < ApplicationController
+
+  protect_from_forgery with: Exception
+
   before_action :set_secret, only: [:show, :edit, :update, :destroy]
+
 
   # GET /secrets
   # GET /secrets.json
@@ -34,19 +38,31 @@ class SecretsController < ApplicationController
   def create
 
     data = secret_params
-    puts data.inspect
-    puts data.class
     
     plaintext = data[:message]
     key = data[:key]
+    errors = []
+
+    if !plaintext.ascii_only?
+      errors.append([:message, "must consist of only ASCII characters"])
+    end
+
+    if !key.ascii_only?
+      errors.append([:key, "must consist of only ASCII characters"])
+    end
+
     algorithm = data[:algorithm].to_i
 
-    ciphertext = CriptoAlgorithms.encrypt(algorithm,key,plaintext)
-    
-    @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
+    if errors.empty?
+      ciphertext = CriptoAlgorithms.encrypt(algorithm,key,plaintext)
+      @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
+    else
+      @secret = Secret.new({ciphertext: "", algorithm: algorithm})
+      for e in errors do @secret.errors.add(e[0], e[1]) end
+    end 
 
     respond_to do |format|
-      if @secret.save
+      if errors.empty? && @secret.save
         format.html { redirect_to @secret, notice: 'Secret was successfully created.' }
         format.json { render :show, status: :created, location: @secret }
       else
@@ -81,13 +97,13 @@ class SecretsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_secret
-      @secret = Secret.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_secret
+    @secret = Secret.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def secret_params
-      params.require(:secret).permit(:message, :key, :algorithm)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def secret_params
+    params.require(:secret).permit(:message, :key, :algorithm)
+  end
 end
