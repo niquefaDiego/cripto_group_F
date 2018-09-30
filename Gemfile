@@ -12,8 +12,8 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+## For heroku deployment
 group :production do
-  ## For heroku deployment
   gem 'pg', '0.20.0'
 end
 
