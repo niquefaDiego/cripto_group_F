@@ -54,7 +54,7 @@ class SecretsController < ApplicationController
     algorithm = data[:algorithm].to_i
 
     if errors.empty?
-      ciphertext = CriptoAlgorithms.encrypt(algorithm,key,plaintext)
+      ciphertext = CriptoAlgorithms.encrypt(algorithm,plaintext,key)
       @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
     else
       @secret = Secret.new({ciphertext: "", algorithm: algorithm})
