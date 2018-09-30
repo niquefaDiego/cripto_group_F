@@ -39,6 +39,18 @@ class SecretsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "message should not be blank" do
+    assert_no_difference('Secret.count') do
+      post secrets_url, params: { secret: { algorithm: @secret.algorithm, message: "", key: @valid_key } }
+    end
+  end
+
+  test "key should not be blank" do
+    assert_no_difference('Secret.count') do
+      post secrets_url, params: { secret: { algorithm: @secret.algorithm, message: @valid_message, key: ""} }
+    end
+  end
+
   test "should show secret" do
     get secret_url(@secret)
     assert_response :success
