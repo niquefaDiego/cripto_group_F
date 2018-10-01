@@ -7,12 +7,23 @@ class LazyAES
 
     current = add_round_key(m, get_key_permutation(k, 0))
 
-    for i in 0..7
-      current = shift_row(current)
+    for i in 1..7
+      current = shift_rows(current)
       current = sub_bytes(current)
       current = add_round_key(current, get_key_permutation(k, i))
     end
 
+    return current
+  end
+
+  def self.decrypt(c, k)
+    current = c
+    for i in 7.downto(1)
+      current = add_round_key(current, get_key_permutation(k, i))
+      current = inv_sub_bytes(current)
+      current = inv_shift_rows(current)
+    end
+    current = add_round_key(current, get_key_permutation(k, 0))
     return current
   end
 
@@ -33,7 +44,7 @@ class LazyAES
     result = ""
     for i in 0..((m.length/32)-1)
       block = m[(i*32)..(i*32)+31]
-      result += (block.to_i(16) ^ kn.to_i(16)).to_s(16)
+      result += (block.to_i(16) ^ kn.to_i(16)).to_s(16).rjust(32, "0")
     end
     return result
   end
@@ -52,7 +63,7 @@ class LazyAES
     return result
   end
 
-  def self.shift_row(m)
+  def self.shift_rows(m)
     if m.length % 32 != 0
       raise "Message does not have the required size"
     end
@@ -63,6 +74,36 @@ class LazyAES
       result += block[0..7]
       for shift in 1..3
         result += block[shift*2+shift*8..shift*8+7] + block[shift*8..shift*8+shift*2-1]
+      end
+    end
+    return result
+  end
+
+  def self.inv_sub_bytes(m)
+    if m.length % 32 != 0
+      raise "Message does not have the required size"
+    end
+
+    result = ""
+    for i in 0..(m.length/2)-1
+      ms = m[i*2].to_i(16)
+      ls = m[i*2+1].to_i(16)
+      result += INV_S_BOX[ms][ls]
+    end
+    return result
+  end
+
+  def self.inv_shift_rows(m)
+    if m.length % 32 != 0
+      raise "Message does not have the required size"
+    end
+
+    result = ""
+    for i in 0..(m.length/32)-1
+      block = m[(i*32)..(i*32)+31]
+      result += block[0..7]
+      for shift in 1..3
+        result += block[shift*6+8..shift*8+7] + block[shift*8..shift*6+7]
       end
     end
     return result
