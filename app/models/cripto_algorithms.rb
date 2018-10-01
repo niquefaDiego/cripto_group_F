@@ -1,4 +1,5 @@
 require 'DES'
+require 'lazy_aes'
 
 class CriptoAlgorithms
 
@@ -36,7 +37,8 @@ class CriptoAlgorithms
       key = force_length(key,16)
       ciphertext = DES.encrypt(plaintext,key)
     when 1
-      ciphertext = plaintext.reverse #TODO
+      key = force_length(key,64)
+      ciphertext = LazyAES.encrypt(plaintext,key)
     end
     ciphertext
   end
@@ -48,7 +50,8 @@ class CriptoAlgorithms
       key = force_length(key,16)
       plaintext = DES.decrypt(ciphertext,key)
     when 1
-      plaintext = chiphertext.reverse #TODO
+      key = force_length(key,64)
+      plaintext = LazyAES.decrypt(ciphertext,key)
     end
     plaintext = to_ascii(plaintext)
     plaintext = remove_trailing_zeroes(plaintext)
