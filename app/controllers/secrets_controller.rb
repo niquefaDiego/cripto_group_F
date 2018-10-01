@@ -43,15 +43,13 @@ class SecretsController < ApplicationController
     key = data[:key]
     errors = []
 
-    if !plaintext.ascii_only?
-      errors.append([:message, "must consist of only ASCII characters"])
-    end
+    
+    errors.append([:message, "must consist of only ASCII characters"]) if !plaintext.ascii_only?
+    errors.append([:key, "must consist of only ASCII characters"]) if !key.ascii_only?
+    errors.append([:message, "can't be blank"]) if plaintext.blank?
+    errors.append([:key, "can't be blank"]) if key.blank?
 
-    if !key.ascii_only?
-      errors.append([:key, "must consist of only ASCII characters"])
-    end
-
-    algorithm = data[:algorithm]
+    algorithm = data[:algorithm].to_i
 
     if errors.empty?
       ciphertext = CriptoAlgorithms.encrypt(algorithm,plaintext,key)
