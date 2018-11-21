@@ -1,0 +1,23 @@
+<%= form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', object: @user %>
+
+  <%= f.label :name, "Nombre" %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <% if locals[:parent] == :new %>
+
+    <%= f.label :email, "Email" %>
+    <%= f.email_field :email, class: 'form-control' %>
+
+  <% end %>
+
+  <%= f.label :password, "Contraseña" %>
+  <%= f.password_field :password, class: 'form-control' %>
+
+  <%= f.label :password_confirmation, "Confirmar contraseña" %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>
+
+

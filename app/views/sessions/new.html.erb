@@ -1,0 +1,26 @@
+<% provide(:title, "Iniciar sesión") %>
+<h1>Inicio de sesión</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session, url: login_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password, "Contraseña" %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :remember_me, class: 'checkbox inline' do %>
+        <%= f.check_box :remember_me %>
+        <span>Recuerdeme en este computador</span>
+      <% end %>
+
+      <%= f.submit "Iniciar sesión", class: "btn btn-primary" %>
+    <% end %>
+
+    <p> Nuevo usuario? <%= link_to "Crear nueva cuenta!", signup_path %> </p>
+  </div>
+</div>
+
+
