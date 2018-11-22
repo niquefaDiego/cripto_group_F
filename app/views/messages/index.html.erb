@@ -1,5 +1,5 @@
 <% if @over_ten %>
-   <%= link_to 'Show Previous', '?m=all' %>
+   <%= link_to 'Mostrar anteriores', '?m=all' %>
 <% end %>
 
 <div class="ui segment">
@@ -27,6 +27,6 @@
   </div>
     <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
   <div>
-    <%= f.submit "Envíar", class: "ui blue labeled submit icon button" %>
+    <%= f.submit "Envíar", class: "btn btn-primary" %>
   </div>
 <% end %>
