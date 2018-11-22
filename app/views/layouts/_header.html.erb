@@ -5,7 +5,7 @@
       <ul class="nav navbar-nav">
         <li class="link"><%= link_to "Inicio", root_path,class:"link2" %></li>
         <% if logged_in? %>
-          <li class="link"><%= link_to "Mensajes", root_path,class:"link2" %></li>
+          <li class="link"><%= link_to "Mensajes", conversations_path,class:"link2" %></li>
           <li class="link"><%= link_to "Secretos", secrets_path,class:"link2" %></li>
         <% end %>
       </ul>
