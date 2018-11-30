@@ -33,3 +33,6 @@
 # Vim temporary files
 *.swp
 *.swo
+
+.DS_Store
+.idea
