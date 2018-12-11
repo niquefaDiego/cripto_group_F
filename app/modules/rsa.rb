@@ -1,7 +1,7 @@
+module RSA
 
 include MathUtils
 
-module RSA
   
   class RSAKeys
 
@@ -39,5 +39,6 @@ module RSA
     m.each { |mi| c <<= power_mod(mi,e,n) } 
     c
   end
+
 
 end
