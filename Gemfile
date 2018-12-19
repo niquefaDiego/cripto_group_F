@@ -82,4 +82,5 @@ gem 'jquery-rails'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'bootstrap-sass', '3.3.7'
+gem 'browserify-rails'
 

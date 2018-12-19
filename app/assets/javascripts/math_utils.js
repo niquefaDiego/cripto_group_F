@@ -36,7 +36,7 @@ function split_with_base(n, b, t) {
 
 function join_with_base(n, b) {
     let r = 0;
-    n.reverse().forEach(function (d) {
+    Array.from(n).reverse().forEach(function (d) {
         r = r * b + d;
     })
     return r;

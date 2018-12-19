@@ -10,10 +10,10 @@ $(document).on('turbolinks:load', function () {
 		var siteFooterHeight = siteFooter.height();
 		var siteFooterWidth = siteFooter.width();
 	
-		console.log('Content Height = ' + siteContentHeight + 'px');
-		console.log('Content Width = ' + siteContentWidth + 'px');
-		console.log('Footer Height = ' + siteFooterHeight + 'px');
-		console.log('Footer Width = ' + siteFooterWidth + 'px');
+		//console.log('Content Height = ' + siteContentHeight + 'px');
+		//console.log('Content Width = ' + siteContentWidth + 'px');
+		//console.log('Footer Height = ' + siteFooterHeight + 'px');
+		//console.log('Footer Width = ' + siteFooterWidth + 'px');
 		siteContent.css({"margin-bottom" : siteFooterHeight + 50});
 		
 	};

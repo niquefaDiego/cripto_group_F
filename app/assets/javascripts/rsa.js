@@ -35,7 +35,7 @@ function rsa(m, key) {
     let e = key[0];
     let n = key[1];
     let c = [];
-    m.forEach(function (mi) {
+    Array.from(m).forEach(function (mi) {
         c.push(power_mod(mi, e, n));
     });
     return c;

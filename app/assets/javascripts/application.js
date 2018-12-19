@@ -15,5 +15,6 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require js-md5/src/md5
 //= require_tree .
 

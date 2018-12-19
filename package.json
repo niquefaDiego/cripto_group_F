@@ -1,5 +1,29 @@
 {
-  "name": "cripto_group_F",
+  "name": "cripto_group_f",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "browserify": "16.2.3",
+    "browserify-incremental": "^3.1.1",
+    "js-md5": "^0.7.3"
+  },
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niquefaDiego/cripto_group_F.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niquefaDiego/cripto_group_F/issues"
+  },
+  "homepage": "https://github.com/niquefaDiego/cripto_group_F#readme"
 }
