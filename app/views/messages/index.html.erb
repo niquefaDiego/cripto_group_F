@@ -1,5 +1,7 @@
 <script type="text/javascript">
-    console.log("Result validate message function: ", validate_message("thisisamessage", "3949sdfjsdhgg"));
+    validate_message("thisisamessage", "3949sdfjsdhgg").then(function (response) {
+        console.log("Result validate message function: " + response);
+    });
 </script>
 
 <% if @over_ten %>
