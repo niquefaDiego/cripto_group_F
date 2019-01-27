@@ -32,11 +32,9 @@ class RSAKeys{
 }
 
 function rsa(m, key) {
-    let e = key[0];
+    let d = key[0];
     let n = key[1];
-    let c = [];
-    Array.from(m).forEach(function (mi) {
-        c.push(power_mod(mi, e, n));
-    });
+
+    let c = power_mod(m, d, n);
     return c;
 }

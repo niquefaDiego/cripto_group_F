@@ -6,17 +6,20 @@ function validate_message(message, encrypted_hash){
     return fetch(url)
         .then(response => response.json())
         .then(function (pk) {
-           if(pk.length == 2){
+           if(pk.length == 2 && !isNaN(encrypted_hash)){
                let e = pk[0];
                let n = pk[1];
 
-               let hash = md5(message);
-               let arr_hash = split_with_base(hash, n, BLOCK_SIZE);
-               let enc_hash_pk_server_arr = rsa(arr_hash, pk);
-               let enc_hash_pk_server = join_with_base(enc_hash_pk_server_arr, n);
+               let hash = parseInt(md5(message), 16);
+               console.log("hash: ", hash);
 
-               return enc_hash_pk_server == encrypted_hash;
+               encrypted_hash = parseInt(encrypted_hash, 10);
+               let sigma = rsa(encrypted_hash, pk);
+               console.log("sigma: ", sigma);
+
+               return sigma == hash;
            }
+           console.warn("Message validation: Invalid parameters were received");
            return false;
         })
         .catch(function (error) {
