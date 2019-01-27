@@ -1,9 +1,3 @@
-<script type="text/javascript">
-    validate_message("thisisamessage", "54375438").then(function (response) {
-        console.log("Result validate message function: " + response);
-    });
-</script>
-
 <% if @over_ten %>
    <%= link_to 'Mostrar anteriores', '?m=all' %>
 <% end %>
@@ -14,13 +8,24 @@
       <% user = User.find(message.user_id) %>
       <div class="item">
         <div class="content">
-          <div class=messages"header"><strong><%= user.name %></strong> <%= message.message_time %></div>
-          <div><var>Firma digital: </var> <%= message.signature %></div>
+          <div class="messages-header">
+            <div id="message-<%=message.id %>"><strong><%= user.name %></strong> <%= message.message_time %></div>
+          <script>
+            validate_message('<%= message.body %>', '<%= message.signature %>')
+                .then(function(response){
+                    console.log("Validation response: ", response);
+                    if (response){
+                        document.getElementById("message-<%=message.id %>").innerHTML += "  <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\" style=\"color:palegreen\"></span>";
+                    }else{
+                        document.getElementById("message-<%=message.id %>").innerHTML += "  <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\" style=\"color:indianred\"></span>";
+                    }
+            });
+          </script>
+          </div>
           <div class="list">
             <div class="item">
               <i class="right triangle icon"></i>
               <%= message.body %>
-              <div> firma digital:  <%= message.signature %> </div>
               <%= message.checkSignature %>
             </div>
           </div>

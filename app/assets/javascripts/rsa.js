@@ -32,8 +32,9 @@ class RSAKeys{
 }
 
 function rsa(m, key) {
-    let d = key[0];
-    let n = key[1];
+    m = BigInt(m);
+    let d = BigInt(key[0]);
+    let n = BigInt(key[1]);
 
     let c = power_mod(m, d, n);
     return c;

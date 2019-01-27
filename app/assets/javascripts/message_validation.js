@@ -10,16 +10,17 @@ function validate_message(message, encrypted_hash){
                let e = pk[0];
                let n = pk[1];
 
-               let hash = parseInt(md5(message), 16);
+               let str_hash = "0x" + md5(message);
+               let hash = BigInt(str_hash) % BigInt(n);
                console.log("hash: ", hash);
 
-               encrypted_hash = parseInt(encrypted_hash, 10);
+               encrypted_hash = BigInt(encrypted_hash);
                let sigma = rsa(encrypted_hash, pk);
                console.log("sigma: ", sigma);
 
                return sigma == hash;
            }
-           console.warn("Message validation: Invalid parameters were received");
+            console.warn("Message validation: Invalid parameters were received");
            return false;
         })
         .catch(function (error) {

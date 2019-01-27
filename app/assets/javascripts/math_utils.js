@@ -15,14 +15,21 @@ function inv(a, m){
 }
 
 function power_mod(b, e, m) {
-    let r = 1;
-    while (e > 0){
-        if (e & 1 > 0)
-            r = (r * b) % m;
-        b = (b * b) % m;
-        e >>= 1;
+    b = BigInt(b);
+    e = BigInt(e);
+    m = BigInt(m);
+
+    let z = 1n;
+
+    let bin_e = (+e.toString()).toString(2);
+    for(let digit of bin_e){
+        if(digit == '0'){
+            z = (z ** 2n) % m;
+        }else if(digit == '1'){
+            z = ((z ** 2n) * b) % m;
+        }
     }
-    return r;
+    return z;
 }
 
 function split_with_base(n, b, t) {
