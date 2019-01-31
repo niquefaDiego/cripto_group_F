@@ -1,7 +1,7 @@
 function extended_gcd(a, b){
     if (b == 0)
         return [1, 0, a];
-    let y, x, d = extended_gcd(b, a%b);
+    var y, x, d = extended_gcd(b, a%b);
     return [x, y - x * (a / b), d];
 }
 
@@ -10,7 +10,7 @@ function eqclass(a, m){
 }
 
 function inv(a, m){
-    let x, y, d = extended_gcd(m, a);
+    var x, y, d = extended_gcd(m, a);
     return eqclass(y, m);
 }
 
@@ -19,10 +19,10 @@ function power_mod(b, e, m) {
     e = BigInt(e);
     m = BigInt(m);
 
-    let z = 1n;
+    var z = 1n;
 
-    let bin_e = (+e.toString()).toString(2);
-    for(let digit of bin_e){
+    var bin_e = (+e.toString()).toString(2);
+    for(var digit of bin_e){
         if(digit == '0'){
             z = (z ** 2n) % m;
         }else if(digit == '1'){
@@ -33,8 +33,8 @@ function power_mod(b, e, m) {
 }
 
 function split_with_base(n, b, t) {
-    let r = [];
-    for (let i = 0; i < t; i++) {
+    var r = [];
+    for (var i = 0; i < t; i++) {
         r <<= n % b;
         n /= b;
     }
@@ -42,7 +42,7 @@ function split_with_base(n, b, t) {
 }
 
 function join_with_base(n, b) {
-    let r = 0;
+    var r = 0;
     Array.from(n).reverse().forEach(function (d) {
         r = r * b + d;
     })
@@ -56,7 +56,7 @@ function is_prime(n){
         return true;
     if (n % 2 == 0 || n % 3  == 0)
         return false;
-    let d = 5;
+    var d = 5;
     while(d * d <= n){
         if(n % d == 0)
             return false;
@@ -70,9 +70,9 @@ function is_prime(n){
 }
 
 function random_prime(min_digits, max_digits) {
-    let min_val = Math.pow(10, min_digits-1);
-    let max_val = Math.pow(10, max_digits-1);
-    let n = Math.floor(Math.random() * (max_val - min_val) + min_val);
+    var min_val = Math.pow(10, min_digits-1);
+    var max_val = Math.pow(10, max_digits-1);
+    var n = Math.floor(Math.random() * (max_val - min_val) + min_val);
     while(!is_prime(n)){
         n += 1;
     }
@@ -83,7 +83,7 @@ function gcd(a, b){
     a = Math.abs(a);
     b = Math.abs(b);
     if(b > a) {
-        let temp = a;
+        var temp = a;
         a = b;
         b = temp;
     }

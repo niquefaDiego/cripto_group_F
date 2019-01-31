@@ -12,15 +12,15 @@ class RSAKeys{
     }
 
     initialize(min_digits){
-        let p = random_prime(min_digits, min_digits+1);
-        let q = random_prime(min_digits, min_digits+1);
+        var p = random_prime(min_digits, min_digits+1);
+        var q = random_prime(min_digits, min_digits+1);
 
         while (p == q){
             q = random_prime(min_digits, min_digits+1);
         }
 
         this.n = p * q;
-        let phi = (p-1) * (q-1);
+        var phi = (p-1) * (q-1);
 
         this.e = 0;
         while(gcd(this.e, phi) != 1){
@@ -33,9 +33,9 @@ class RSAKeys{
 
 function rsa(m, key) {
     m = BigInt(m);
-    let d = BigInt(key[0]);
-    let n = BigInt(key[1]);
+    var d = BigInt(key[0]);
+    var n = BigInt(key[1]);
 
-    let c = power_mod(m, d, n);
+    var c = power_mod(m, d, n);
     return c;
 }
