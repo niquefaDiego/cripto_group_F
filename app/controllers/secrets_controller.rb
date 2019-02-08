@@ -15,12 +15,15 @@ class SecretsController < ApplicationController
   # GET /secrets/1
   # GET /secrets/1.json
   def show
+    if current_user.nil?
+      redirect_to root_path
     # Redirects to secrets index when te user tries to access another user secret
-    if @secret.user_id != current_user.id
+    elsif @secret.user_id != current_user.id
       redirect_to secrets_path
+    else
+      @algorithm_name = CriptoAlgorithms.names
+      @key = params[:key] #unsafe? :v
     end
-    @algorithm_name = CriptoAlgorithms.names
-    @key = params[:key] #unsafe? :v
   end
 
   # GET /secrets/new
