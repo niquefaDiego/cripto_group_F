@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_233720) do
+ActiveRecord::Schema.define(version: 2019_02_08_181419) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer "sender_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2018_11_21_233720) do
     t.integer "algorithm"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

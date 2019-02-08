@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:info] = "Your account has been created"
+      flash[:info] = "Su cuenta ha sido creada"
       redirect_to root_url
     else
       render 'new'
@@ -37,10 +37,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(update_user_params)
-      flash[:success] = "Profile updated"
+      flash[:success] = "Su perfil ha sido actualizado"
       redirect_to @user
     else
-      render 'edit'
+      render 'edite'
     end
   end
 

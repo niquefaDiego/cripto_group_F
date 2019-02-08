@@ -15,6 +15,10 @@ class SecretsController < ApplicationController
   # GET /secrets/1
   # GET /secrets/1.json
   def show
+    # Redirects to secrets index when te user tries to access another user secret
+    if @secret.user_id != current_user.id
+      redirect_to secrets_path
+    end
     @algorithm_name = CriptoAlgorithms.names
     @key = params[:key] #unsafe? :v
   end
@@ -53,7 +57,7 @@ class SecretsController < ApplicationController
 
     if errors.empty?
       ciphertext = CriptoAlgorithms.encrypt(algorithm,plaintext,key)
-      @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm})
+      @secret = Secret.new({ciphertext: ciphertext, algorithm: algorithm, user_id: current_user.id})
     else
       @secret = Secret.new({ciphertext: "", algorithm: algorithm})
       for e in errors do @secret.errors.add(e[0], e[1]) end
@@ -61,7 +65,7 @@ class SecretsController < ApplicationController
 
     respond_to do |format|
       if errors.empty? && @secret.save
-        format.html { redirect_to @secret, notice: 'Secret was successfully created.' }
+        format.html { redirect_to @secret, notice: 'El secreto se creó correctamente.' }
         format.json { render :show, status: :created, location: @secret }
       else
         format.html { render :new }
@@ -75,7 +79,7 @@ class SecretsController < ApplicationController
   def update
     respond_to do |format|
       if @secret.update(secret_params)
-        format.html { redirect_to @secret, notice: 'Secret was successfully updated.' }
+        format.html { redirect_to @secret, notice: 'El secreto se actualizó correctamente.' }
         format.json { render :show, status: :ok, location: @secret }
       else
         format.html { render :edit }
@@ -89,7 +93,7 @@ class SecretsController < ApplicationController
   def destroy
     @secret.destroy
     respond_to do |format|
-      format.html { redirect_to secrets_url, notice: 'Secret was successfully destroyed.' }
+      format.html { redirect_to secrets_url, notice: 'El secreto se eliminó correctamente.' }
       format.json { head :no_content }
     end
   end
