@@ -11,7 +11,7 @@ class Message < ActiveRecord::Base
 
   def signature
     md5 = Digest::MD5.new
-    md5 << body 
+    md5 << body.gsub(/\r?\n/, " ")
     s = md5.hexdigest
     s = power_mod(s.to_i(16), $rsa_keys.private_key[0], $rsa_keys.private_key[1])
   end

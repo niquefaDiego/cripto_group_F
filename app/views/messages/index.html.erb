@@ -11,7 +11,7 @@
           <div class="messages-header">
             <div id="message-<%=message.id %>"><strong><%= user.name %></strong> <%= message.message_time %></div>
           <script>
-            validate_message('<%= message.body %>', '<%= message.signature %>')
+            validate_message('<%= message.body.gsub(/\r?\n/, " ") %>', '<%= message.signature %>')
                 .then(function(response){
                     console.log("Validation response: ", response);
                     if (response){
