@@ -56,6 +56,7 @@ class CriptoAlgorithms
     plaintext = to_ascii(plaintext)
     plaintext = remove_trailing_zeroes(plaintext)
 
+    plaintext = plaintext.to_s.force_encoding("UTF-8")
     plaintext
   end
 
