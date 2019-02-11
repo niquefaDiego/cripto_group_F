@@ -2,7 +2,7 @@ module RSA
 
 include MathUtils
 
-  
+  # Class to encapsulate the keys of RSA.
   class RSAKeys
 
     def public_key
@@ -13,6 +13,7 @@ include MathUtils
       [@d,@n]
     end
 
+    # Build keys with at least min_digits digits
     def initialize(min_digits)
       p = random_prime(min_digits,min_digits+1)
       q = random_prime(min_digits,min_digits+1)
@@ -32,6 +33,7 @@ include MathUtils
       attr_accessor :d
   end
   
+  # Apply RSA to each element in array m
   def rsa(m, key)
     e = key[0]
     n = key[1]
@@ -39,6 +41,5 @@ include MathUtils
     m.each { |mi| c <<= power_mod(mi,e,n) } 
     c
   end
-
 
 end
